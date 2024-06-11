@@ -9,9 +9,10 @@ import { CustomerModule } from './customer/customer.module';
 import { CheckoutModule } from './checkout/checkout.module';
 import { OrderModule } from './order/order.module';
 import { CollectionModule } from './collection/collection.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [AuthModule, ProductModule, CollectionModule, OrderModule, CheckoutModule, CustomerModule, DashboardModule, CartModule],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), AuthModule, ProductModule, CollectionModule, OrderModule, CheckoutModule, CustomerModule, DashboardModule, CartModule],
   controllers: [AppController],
   providers: [AppService],
 })
