@@ -10,9 +10,11 @@ import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { HomeModule } from './modules/home/home.module';
 import { UsersModule } from './modules/users/users.module';
 import { OrdersModule } from './modules/orders/orders.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), ProductsModule, CartsModule, AuthModule, CollectionsModule, DashboardModule, HomeModule, UsersModule, OrdersModule],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), ProductsModule, CartsModule, AuthModule, CollectionsModule, DashboardModule, HomeModule, UsersModule, OrdersModule, ServeStaticModule.forRoot({rootPath: join(__dirname, '..')})],
   controllers: [AppController],
   providers: [AppService],
 })
