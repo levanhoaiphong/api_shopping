@@ -51,8 +51,8 @@ model customers {
   email                 String?           @unique(map: "email") @db.VarChar(255)
   phone                 String?           @unique(map: "phone") @db.VarChar(13)
   verified_email        Boolean?
-  password              String?           @db.VarChar(20)
-  password_confirmation String?           @db.VarChar(20)
+  password              String?           @db.VarChar(100)
+  password_confirmation String?           @db.VarChar(100)
   send_email_welcome    Boolean?
   last_order_id         Int?
   last_order_name       Int?

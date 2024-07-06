@@ -6,6 +6,7 @@ import { extname } from 'path';
 interface UploadMiddlewareOptions {
     destination: string;
 }
+
 @Injectable()
 export class UploadMiddleware implements NestMiddleware {
     constructor(private options: UploadMiddlewareOptions) { }

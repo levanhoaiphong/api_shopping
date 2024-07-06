@@ -19,7 +19,7 @@ export class AuthController {
     }
   }
 
-  @Post("/sign-in")
+  @Post("/sign-up")
   async singUpCustomer(@Body() body) {
     try {
       return this.authService.singUpCustomer(body)

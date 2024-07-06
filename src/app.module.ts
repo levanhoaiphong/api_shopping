@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
@@ -12,10 +12,18 @@ import { UsersModule } from './modules/users/users.module';
 import { OrdersModule } from './modules/orders/orders.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { UploadMiddleware } from 'src/common/middleware/upload.middleware';
 
 @Module({
   imports: [ConfigModule.forRoot({ isGlobal: true }), ProductsModule, CartsModule, AuthModule, CollectionsModule, DashboardModule, HomeModule, UsersModule, OrdersModule, ServeStaticModule.forRoot({rootPath: join(__dirname, '..')})],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply((req, res, next) => {
+      const uploadMiddleware = new UploadMiddleware({ destination: 'products' });
+      uploadMiddleware.use(req, res, next)
+    }).forRoutes({ path: 'products/create-product', method: RequestMethod.POST })
+  }
+}
